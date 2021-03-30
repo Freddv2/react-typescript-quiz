@@ -6,7 +6,7 @@ import QuestionCard from "./components/QuestionCard";
 
 const TOTAL_QUESTIONS = 10
 
-type AnswerDetails = {
+export type AnswerDetails = {
   question: string
   answer: string
   correct: boolean
@@ -73,7 +73,7 @@ const App = () => {
           question={questions[questionNumber].question}
           answers={questions[questionNumber].answers}
           userAnswer={userAnswers ? userAnswers[questionNumber] : undefined}
-          callback={checkAnswer}
+          submitAnswerCallback={checkAnswer}
         />)}
         {!gameOver && !loading && userAnswers.length === questionNumber + 1 && questionNumber !== TOTAL_QUESTIONS - 1 && (
           <button className="next" onClick={nextQuestion}>
