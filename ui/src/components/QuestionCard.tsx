@@ -17,7 +17,7 @@ const QuestionCard: React.FC<Props> = ({question,answers,submitAnswerCallback,us
         <p className="number">
             Question: {questionNb} / {totalQuestions}
         </p>
-        <p dangerouslySetInnerHTML={{ __html: question}}/>
+        <p className="question-text" dangerouslySetInnerHTML={{ __html: question}}/>
         <div>
             {answers.map(answer => (
                 <ButtonWrapper

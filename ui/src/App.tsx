@@ -64,13 +64,15 @@ const App = () => {
         <GlobalStyle/>
         <Wrapper>
           <h1>Satisfaite, du Jeu des Devinettes</h1>
+
           {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
-            <button className="start" onClick={startTrivia}>
-              Débuter
+            <button className="start page-centered" onClick={startTrivia}>
+              Start
             </button>
           ) : null }
           {!gameOver && <p className="score">Score: {score}</p>}
           {loading && <p>Chargement...</p> }
+          <div className="questions page-centered">
           {!loading && !gameOver && (
             <QuestionCard
             questionNb={questionNumber + 1}
@@ -82,9 +84,10 @@ const App = () => {
           />)}
           {!gameOver && !loading && userAnswers.length === questionNumber + 1 && questionNumber !== TOTAL_QUESTIONS - 1 && (
             <button className="next" onClick={nextQuestion}>
-              Prochaine question
+              Next
             </button>
           )}
+          </div>
         </Wrapper>
       </>
   );

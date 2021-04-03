@@ -1,15 +1,13 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  max-width: 1100px;
-  background: #ebfeff;
-  border-radius: 10px;
-  border: 2px solid #0085a3;
-  padding: 20px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+  max-width: 1200px;
   
-  p {
-    font-size: 1rem;
+  .question-text {
+    color: white;
+    font-size: 30px;
+    font-weight: 400;
+    text-align: center;
   }
 `
 
@@ -20,7 +18,8 @@ type ButtonWrapperProps = {
 
 export const ButtonWrapper = styled.div<ButtonWrapperProps>`
   transition: all 0.3s ease;
-  
+  text-align: center;
+
   :hover {
     opacity: 0.8;
   }
@@ -28,18 +27,18 @@ export const ButtonWrapper = styled.div<ButtonWrapperProps>`
   button {
     cursor: pointer;
     user-select: none;
-    font-size: 0.8rem;
-    width: 100px;
-    height: 40px;
-    margin: 5px 0;
+    font-size: 30px;
+    width: 500px;
+    margin: 20px 0;
     background: ${({correct, userClicked}) => 
             correct ? 'linear-gradient(90deg, #56ffa4, #59bc86)'
                     : !correct && userClicked ? 'linear-gradient(90deg, #ff5656, #c16868)'
-                    : 'linear-gradient(90deg, #56ccff, #6eafb4)'};
+                    : '#0d0d0d'};
     border: 3px solid #fff;
     box-shadow: 1px 2px 0 rgba(0,0,0,0.1);
     border-radius: 10px;
     color: white;
     text-shadow: 0 1px 0 rgba(0,0,0,0.25);
+    text-align: center;
   }
 `

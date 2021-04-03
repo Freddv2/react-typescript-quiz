@@ -1,6 +1,5 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, {createGlobalStyle} from "styled-components";
 import BGImage from './images/background.jpeg'
-import {create} from "domain";
 
 export const GlobalStyle = createGlobalStyle`
     html {
@@ -36,12 +35,17 @@ export const Wrapper = styled.div`
 
   .score {
     color: white;
-    font-size: 2em;
-    margin: 0;
+    font-size: 70px;
+    font-weight: 400;
+    
   }
 
+  .questions {
+    min-width: 800px;
+  }
+  
   h1 {
-    background-image: linear-gradient(180deg, #fff, #87f1ff);
+    background-image: linear-gradient(180deg, #fff, yellow);
     background-size: 100%;
     background-clip: text;
     -webkit-background-clip: text;
@@ -57,16 +61,21 @@ export const Wrapper = styled.div`
 
   .start, .next {
     cursor: pointer;
+    align-items: center;
+    font-size: 50px;
+    width: 500px;
     background: linear-gradient(180deg, #fff, #ffcc91);
     border: 2px solid #d38558;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    height: 40px;
-    margin: 20px;
-    padding: 0 40px;
   }
-
-  .start {
-    max-width: 200px;
+  
+  .page-centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
   }
 `
