@@ -14,11 +14,8 @@ type Props = {
 const QuestionCard: React.FC<Props> = ({question,answers,submitAnswerCallback,userAnswer,questionNb,totalQuestions}) => (
     <Wrapper>
     <div>
-        <p className="number">
-            Question: {questionNb} / {totalQuestions}
-        </p>
         <p className="question-text" dangerouslySetInnerHTML={{ __html: question}}/>
-        <div>
+        <div className="answers">
             {answers.map(answer => (
                 <ButtonWrapper
                     key={answer}

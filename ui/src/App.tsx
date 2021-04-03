@@ -66,11 +66,11 @@ const App = () => {
           <h1>Satisfaite, du Jeu des Devinettes</h1>
 
           {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
-            <button className="start page-centered" onClick={startTrivia}>
+            <button className="start generic-button page-centered" onClick={startTrivia}>
               Start
             </button>
           ) : null }
-          {!gameOver && <p className="score">Score: {score}</p>}
+          {!gameOver && <span className="score">Score: {score}</span>}
           {loading && <p>Chargement...</p> }
           <div className="questions page-centered">
           {!loading && !gameOver && (
@@ -83,7 +83,7 @@ const App = () => {
             submitAnswerCallback={checkAnswer}
           />)}
           {!gameOver && !loading && userAnswers.length === questionNumber + 1 && questionNumber !== TOTAL_QUESTIONS - 1 && (
-            <button className="next" onClick={nextQuestion}>
+            <button className="next generic-button page-horizontally-centered" onClick={nextQuestion}>
               Next
             </button>
           )}
