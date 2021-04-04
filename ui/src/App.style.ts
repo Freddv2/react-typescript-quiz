@@ -57,13 +57,10 @@ export const Wrapper = styled.div`
     text-align: center;
     margin: 10px;
   }
-
-  .start, .next {
-
-  }
-
-  .next {
+  
+  .restart, .next {
     margin-top: 50px !important;
+
   }
   
   .page-centered {

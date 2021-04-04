@@ -7,7 +7,7 @@ import { GlobalStyle, Wrapper } from './App.style'
 import {Difficulty, fetchQuestions, QuestionState} from "./API";
 import QuestionCard from "./components/QuestionCard";
 
-const TOTAL_QUESTIONS = 10
+const TOTAL_QUESTIONS = 2
 
 export type AnswerDetails = {
   question: string
@@ -17,15 +17,17 @@ export type AnswerDetails = {
 }
 
 const App = () => {
-  const [loading, setLoading] = useState(false)
   const [questions, setQuestions] = useState<QuestionState[]>([])
   const [questionNumber, setQuestionNumber] = useState(0)
   const [userAnswers, setUserAnswers] = useState<AnswerDetails[]>([])
   const [score, setScore] = useState(0)
   const [gameOver, setGameOver] = useState(true)
+  const [triviaStarted, setTriviaStarted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const startTrivia = async () =>  {
     setLoading(true)
+    setTriviaStarted(true)
     setGameOver(false)
     setScore(0)
     setUserAnswers([])
@@ -64,16 +66,9 @@ const App = () => {
         <GlobalStyle/>
         <Wrapper>
           <h1>Satisfaite, du Jeu des Devinettes</h1>
-
-          {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
-            <button className="start generic-button page-centered" onClick={startTrivia}>
-              Start
-            </button>
-          ) : null }
-          {!gameOver && <span className="score">Score: {score}</span>}
-          {loading && <p>Chargement...</p> }
+          {!gameOver && !loading && <span className="score">Score: {score}</span>}
           <div className="questions page-centered">
-          {!loading && !gameOver && (
+          {!gameOver && !loading && (
             <QuestionCard
             questionNb={questionNumber + 1}
             totalQuestions={TOTAL_QUESTIONS}
@@ -82,7 +77,19 @@ const App = () => {
             userAnswer={userAnswers ? userAnswers[questionNumber] : undefined}
             submitAnswerCallback={checkAnswer}
           />)}
-          {!gameOver && !loading && userAnswers.length === questionNumber + 1 && questionNumber !== TOTAL_QUESTIONS - 1 && (
+
+          {
+            !triviaStarted ? (
+                <button className="start generic-button page-horizontally-centered" onClick={startTrivia}>
+                  Begin
+                </button>
+            ) : null}
+          {userAnswers.length === TOTAL_QUESTIONS ? (
+              <button className="restart generic-button page-horizontally-centered" onClick={startTrivia}>
+                Restart
+              </button>
+          ) : null }
+          {!gameOver && userAnswers.length === questionNumber + 1 && questionNumber !== TOTAL_QUESTIONS - 1 && (
             <button className="next generic-button page-horizontally-centered" onClick={nextQuestion}>
               Next
             </button>
