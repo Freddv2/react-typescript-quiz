@@ -31,11 +31,12 @@ export enum NumberOfQuestions {
     THIRTY = 30
 }
 
-export const fetchQuestions = async (category: string, nbOfQuestions: number, difficulty: Difficulty): Promise<QuestionState[]> => {
-    if (category === 'ALL') {
-        category = ''
+export const fetchQuestions = async (category: number, nbOfQuestions: number, difficulty: Difficulty): Promise<QuestionState[]> => {
+
+    let endpoint = `https://opentdb.com/api.php?amount=${nbOfQuestions}&difficulty=${difficulty}&type=multiple`
+    if (category && category !== -1) {
+        endpoint += `&category=${category}`
     }
-    const endpoint = `https://opentdb.com/api.php?amount=${nbOfQuestions}&difficulty=${difficulty}&type=multiple`
     const data = await (await fetch(endpoint)).json()
     console.log(data)
     return data.results.map((question: Question) => (
@@ -46,9 +47,9 @@ export const fetchQuestions = async (category: string, nbOfQuestions: number, di
     ))
 }
 
-export const fetchCategories = async (): Promise<Category> => {
+export const fetchCategories = async (): Promise<Category[]> => {
     const endpoint = `https://opentdb.com/api_category.php`
     const data = await (await fetch(endpoint)).json()
     console.log(data)
-    return data.results.map((cat: any) => cat.name)
+    return data.trivia_categories
 }
