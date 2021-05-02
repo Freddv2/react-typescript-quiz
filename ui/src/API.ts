@@ -23,7 +23,7 @@ export enum Difficulty {
     ANY = 'Any'
 }
 
-export enum NumberOfQuestions {
+export enum NumberOfQuestion {
     FIVE = 5,
     TEN = 10,
     FIFTEEN = 15,
@@ -33,7 +33,7 @@ export enum NumberOfQuestions {
 
 export const fetchQuestions = async (category: number, nbOfQuestions: number, difficulty: Difficulty): Promise<QuestionState[]> => {
 
-    let endpoint = `https://opentdb.com/api.php?amount=${nbOfQuestions}&difficulty=${difficulty}&type=multiple`
+    let endpoint = `https://opentdb.com/api.php?amount=${nbOfQuestions}&difficulty=${difficulty.toLowerCase()}&type=multiple`
     if (category && category !== -1) {
         endpoint += `&category=${category}`
     }

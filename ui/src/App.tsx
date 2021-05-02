@@ -4,11 +4,10 @@ import React, {useEffect, useState} from 'react';
 import {GlobalStyle, Wrapper} from './App.style'
 
 // Components
-import {Difficulty, fetchCategories, fetchQuestions, NumberOfQuestions, QuestionState} from "./API";
+import {Difficulty, fetchCategories, fetchQuestions, NumberOfQuestion, QuestionState} from "./API";
 import QuestionCard from "./components/QuestionCard";
 import TriviaSettings from "./components/TriviaSettings";
-
-const TOTAL_QUESTIONS = 2
+import {getValuesOfNumericEnum} from "./utils";
 
 export type AnswerDetails = {
   question: string
@@ -31,10 +30,14 @@ const App = () => {
   const [gameOver, setGameOver] = useState(true)
   const [triviaStarted, setTriviaStarted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [category, setCategory] = useState(-1)
+  const [nbOfQuestion, setNbOfQuestion] = useState(NumberOfQuestion.TEN)
+  const [difficulty, setDifficulty] = useState(Difficulty.EASY)
   const [categories, setCategories] = useState<TriviaOption[]>([])
   const [difficulties, setDifficulties] = useState<TriviaOption[]>([])
   const [nbOfQuestions, setNbOfQuestions] = useState<TriviaOption[]>([])
 
+  //Special react functional component method which is called each time the properties passed as parameters changes.
   useEffect(() => {
     console.log('Entered useEffect()');
     //Define an anonymous async function which is immediately called (Notice the () at the end. We can't define the useEffect param as async.
@@ -46,19 +49,22 @@ const App = () => {
     setDifficulties(Object.values(Difficulty).map(diff => ({
       name: diff
     })))
-    setNbOfQuestions(Object.values(NumberOfQuestions).map(nb => ({
+    setNbOfQuestions(getValuesOfNumericEnum(NumberOfQuestion).map(nb => ({
       name: nb
     })))
   }, []) // Passing an empty array as dependencies, it is equivalent to using 'componentDidMount (or mounted()).
 
 
-  const startTrivia = async (category: number, nbOfQuestion: NumberOfQuestions, difficulty: Difficulty) => {
+  const startTrivia = async (category: number, nbOfQuestion: NumberOfQuestion, difficulty: Difficulty) => {
     setLoading(true)
     setTriviaStarted(true)
     setGameOver(false)
     setScore(0)
     setUserAnswers([])
     setQuestionNumber(0)
+    setCategory(category)
+    setNbOfQuestion(nbOfQuestion)
+    setDifficulty(difficulty)
     const questions = await fetchQuestions(category, nbOfQuestion, difficulty)
     setQuestions(questions)
     setLoading(false)
@@ -85,11 +91,11 @@ const App = () => {
   }
 
   const nextQuestion = () => {
-    const nextQuestion = questionNumber + 1
-    if(nextQuestion === TOTAL_QUESTIONS) {
+    const nextQuestionNb = questionNumber + 1
+    if (nextQuestionNb === nbOfQuestion) {
       setGameOver(true)
     } else {
-      setQuestionNumber(nextQuestion)
+      setQuestionNumber(nextQuestionNb)
     }
   }
 
@@ -110,19 +116,17 @@ const App = () => {
           <div className="questions page-centered">
             {!gameOver && !loading && (
                 <QuestionCard
-                    questionNb={questionNumber + 1}
-                    totalQuestions={TOTAL_QUESTIONS}
                     question={questions[questionNumber].question}
                     answers={questions[questionNumber].answers}
                     userAnswer={userAnswers ? userAnswers[questionNumber] : undefined}
                     submitAnswerCallback={checkAnswer}
                 />)}
-            {!gameOver && userAnswers.length === questionNumber + 1 && questionNumber !== TOTAL_QUESTIONS - 1 && (
+            {!gameOver && userAnswers.length === questionNumber + 1 && questionNumber !== nbOfQuestion.valueOf() - 1 && (
                 <button className="next generic-button page-horizontally-centered" onClick={nextQuestion}>
                   Next
                 </button>
             )}
-            {userAnswers.length === TOTAL_QUESTIONS ? (
+            {userAnswers.length === nbOfQuestion.valueOf() ? (
                 <button className="restart generic-button page-horizontally-centered" onClick={restart}>
                   Restart
                 </button>

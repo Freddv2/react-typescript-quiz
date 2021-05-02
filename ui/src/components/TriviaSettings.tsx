@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import {OptionWrapper} from './TriviaSettings.style'
 import {TriviaOption} from "../App";
-import {Difficulty, NumberOfQuestions} from "../API";
+import {Difficulty, NumberOfQuestion} from "../API";
 
 type Props = {
     categories: TriviaOption[]
     nbOfQuestions: TriviaOption[]
     difficulties: TriviaOption[]
-    startTriviaCallback: (category: number, nbOfQuestion: NumberOfQuestions, difficulty: Difficulty) => Promise<void>
+    startTriviaCallback: (category: number, nbOfQuestion: NumberOfQuestion, difficulty: Difficulty) => Promise<void>
 }
 
 enum SettingType {
@@ -19,7 +19,7 @@ enum SettingType {
 const TriviaSettings: React.FC<Props> = ({categories, nbOfQuestions, difficulties, startTriviaCallback}) => {
 
     const [category, setCategory] = useState(-1)
-    const [nbOfQuestion, setNbOfQuestion] = useState(NumberOfQuestions.TEN)
+    const [nbOfQuestion, setNbOfQuestion] = useState(NumberOfQuestion.TEN)
     const [difficulty, setDifficulty] = useState(Difficulty.EASY)
     console.log(nbOfQuestions)
     const select = (e: React.MouseEvent<HTMLButtonElement>, type: SettingType) => {
