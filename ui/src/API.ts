@@ -17,16 +17,15 @@ export type Category = {
 }
 
 export enum Difficulty {
+    ANY = 'Any',
     EASY = 'Easy',
     MEDIUM = 'Medium',
-    HARD = 'Hard',
-    ANY = 'Any'
+    HARD = 'Hard'
 }
 
 export enum NumberOfQuestion {
     FIVE = 5,
     TEN = 10,
-    FIFTEEN = 15,
     TWENTY = 20,
     THIRTY = 30
 }
@@ -51,5 +50,16 @@ export const fetchCategories = async (): Promise<Category[]> => {
     const endpoint = `https://opentdb.com/api_category.php`
     const data = await (await fetch(endpoint)).json()
     console.log(data)
-    return data.trivia_categories
+    const cats = data.trivia_categories
+        .filter((cat: Category) => cat.id != 31) //Exclude Japanese & Manga
+        .map((cat: Category) => (
+            {
+                id: cat.id,
+                name: cat.name.substring(cat.name.indexOf(':') + 1, cat.name.length),
+            }))
+    cats.unshift({
+        id: -1,
+        name: 'Any'
+    })
+    return cats
 }

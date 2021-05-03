@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {OptionWrapper} from './TriviaSettings.style'
+import {OptionsWrapper, OptionWrapper, TriviaSettingsWrapper} from './TriviaSettings.style'
 import {TriviaOption} from "../App";
 import {Difficulty, NumberOfQuestion} from "../API";
 
@@ -38,23 +38,21 @@ const TriviaSettings: React.FC<Props> = ({categories, nbOfQuestions, difficultie
     }
 
     return (
-        <div>
-            <p>Category</p>
-            <div>
+        <TriviaSettingsWrapper>
+            <OptionsWrapper>
                 {categories.map(cat => (
                     <OptionWrapper
                         key={cat.id}
                         selected={cat.id === category}>
-                        <div key={cat.id}>
+                        <span key={cat.id}>
                             <button value={cat.id} onClick={(e) => select(e, SettingType.CATEGORY)}>
                                 {cat.name}
                             </button>
-                        </div>
+                        </span>
                     </OptionWrapper>
                 ))}
-            </div>
-            <p>Difficulty</p>
-            <div>
+            </OptionsWrapper>
+            <OptionsWrapper>
                 {difficulties.map(diff => (
                     <OptionWrapper
                         key={diff.name}
@@ -66,9 +64,8 @@ const TriviaSettings: React.FC<Props> = ({categories, nbOfQuestions, difficultie
                         </div>
                     </OptionWrapper>
                 ))}
-            </div>
-            <p>Number of Questions</p>
-            <div>
+            </OptionsWrapper>
+            <OptionsWrapper>
                 {nbOfQuestions.map(nb => (
                     <OptionWrapper
                         key={nb.name}
@@ -80,13 +77,13 @@ const TriviaSettings: React.FC<Props> = ({categories, nbOfQuestions, difficultie
                         </div>
                     </OptionWrapper>
                 ))}
-            </div>
+            </OptionsWrapper>
             <div>
                 <button className="start generic-button page-horizontally-centered" onClick={() => startTriviaCallback(category, nbOfQuestion, difficulty)}>
                     Start
                 </button>
             </div>
-        </div>)
+        </TriviaSettingsWrapper>)
 }
 
 export default TriviaSettings

@@ -8,7 +8,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "deploy": "yarn --cwd ./../ui build && yarn run build && cdk synth && cdk deploy --require-approval never"
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.101.0",
