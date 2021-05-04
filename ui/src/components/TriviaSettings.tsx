@@ -39,6 +39,7 @@ const TriviaSettings: React.FC<Props> = ({categories, nbOfQuestions, difficultie
 
     return (
         <TriviaSettingsWrapper>
+            <h2>Category</h2>
             <OptionsWrapper>
                 {categories.map(cat => (
                     <OptionWrapper
@@ -52,6 +53,7 @@ const TriviaSettings: React.FC<Props> = ({categories, nbOfQuestions, difficultie
                     </OptionWrapper>
                 ))}
             </OptionsWrapper>
+            <h2>Difficulty</h2>
             <OptionsWrapper>
                 {difficulties.map(diff => (
                     <OptionWrapper
@@ -65,6 +67,7 @@ const TriviaSettings: React.FC<Props> = ({categories, nbOfQuestions, difficultie
                     </OptionWrapper>
                 ))}
             </OptionsWrapper>
+            <h2>How Many Questions</h2>
             <OptionsWrapper>
                 {nbOfQuestions.map(nb => (
                     <OptionWrapper
@@ -79,7 +82,7 @@ const TriviaSettings: React.FC<Props> = ({categories, nbOfQuestions, difficultie
                 ))}
             </OptionsWrapper>
             <div>
-                <button className="start generic-button page-horizontally-centered" onClick={() => startTriviaCallback(category, nbOfQuestion, difficulty)}>
+                <button className="start generic-button page-horizontally-centered" style={{marginTop: "40px"}} onClick={() => startTriviaCallback(category, nbOfQuestion, difficulty)}>
                     Start
                 </button>
             </div>

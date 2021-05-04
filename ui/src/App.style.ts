@@ -57,12 +57,27 @@ export const Wrapper = styled.div`
     text-align: center;
     margin: 10px;
   }
-  
+
+  h2 {
+    background-image: linear-gradient(180deg, #fff, yellow);
+    background-size: 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    filter: drop-shadow(2px 2px #0085a3);
+    font-size: 25px;
+    font-weight: 800;
+    text-align: center;
+    margin: 10px;
+  }
+
   .restart, .next {
     margin-top: 50px !important;
 
   }
-  
+
   .page-centered {
     position: absolute;
     top: 50%;
