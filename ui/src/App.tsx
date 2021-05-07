@@ -22,7 +22,13 @@ export type TriviaOption = {
 }
 
 const App = () => {
-  console.log('Entered App ()')
+  console.log('Entered App()')
+
+  const bravoSfx = new Audio('assets/sounds/assets/sounds/bravo.m4a')
+  bravoSfx.load()
+  const satisfaiteSfx = new Audio('assets/sounds/assets/sounds/satisfaite.m4a')
+  satisfaiteSfx.load()
+
   const [questions, setQuestions] = useState<QuestionState[]>([])
   const [questionNumber, setQuestionNumber] = useState(0)
   const [userAnswers, setUserAnswers] = useState<AnswerDetails[]>([])
@@ -54,6 +60,11 @@ const App = () => {
     })))
   }, []) // Passing an empty array as dependencies, it is equivalent to using 'componentDidMount (or mounted()).
 
+  useEffect(() => {
+    if (userAnswers.length === nbOfQuestion.valueOf()) {
+      handleGameOver()
+    }
+  }, [userAnswers])
 
   const startTrivia = async (category: number, nbOfQuestion: NumberOfQuestion, difficulty: Difficulty) => {
     setLoading(true)
@@ -63,15 +74,14 @@ const App = () => {
     setUserAnswers([])
     setQuestionNumber(0)
     setCategory(category)
-    setNbOfQuestion(nbOfQuestion)
+    setNbOfQuestion(1)
     setDifficulty(difficulty)
-    const questions = await fetchQuestions(category, nbOfQuestion, difficulty)
+    const questions = await fetchQuestions(category, 1, difficulty)
     setQuestions(questions)
     setLoading(false)
   }
 
   const restart = () => {
-    setGameOver(true)
     setTriviaStarted(false)
   }
 
@@ -93,9 +103,16 @@ const App = () => {
   const nextQuestion = () => {
     const nextQuestionNb = questionNumber + 1
     if (nextQuestionNb === nbOfQuestion) {
-      setGameOver(true)
+      handleGameOver()
     } else {
       setQuestionNumber(nextQuestionNb)
+    }
+  }
+
+  const handleGameOver = () => {
+    setGameOver(true)
+    if (score / nbOfQuestion >= 0.6) {
+      score / nbOfQuestion >= 0.8 ? bravoSfx.play() : satisfaiteSfx.play()
     }
   }
 
@@ -112,21 +129,24 @@ const App = () => {
                   startTriviaCallback={startTrivia}
               />
           )}
-          {!gameOver && !loading && <span className="score">Score: {score}</span>}
+          {triviaStarted && !loading && <span className="score">Score: {score} / {userAnswers.length}</span>}
+          {gameOver && triviaStarted && (
+              <h1 style={{marginTop: "50px"}}>Bravo!</h1>
+          )}
           <div className="questions page-centered">
-            {!gameOver && !loading && (
+            {triviaStarted && !loading && (
                 <QuestionCard
                     question={questions[questionNumber].question}
                     answers={questions[questionNumber].answers}
                     userAnswer={userAnswers ? userAnswers[questionNumber] : undefined}
                     submitAnswerCallback={checkAnswer}
                 />)}
-            {!gameOver && userAnswers.length === questionNumber + 1 && questionNumber !== nbOfQuestion.valueOf() - 1 && (
+            {triviaStarted && !gameOver && userAnswers.length === questionNumber + 1 && questionNumber !== nbOfQuestion.valueOf() - 1 && (
                 <button className="next generic-button page-horizontally-centered" onClick={nextQuestion}>
                   Next
                 </button>
             )}
-            {userAnswers.length === nbOfQuestion.valueOf() ? (
+            {gameOver && triviaStarted ? (
                 <button className="restart generic-button page-horizontally-centered" onClick={restart}>
                   Restart
                 </button>
