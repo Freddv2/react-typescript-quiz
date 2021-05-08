@@ -49,7 +49,6 @@ export const fetchQuestions = async (category: number, nbOfQuestions: number, di
 export const fetchCategories = async (): Promise<Category[]> => {
     const endpoint = `https://opentdb.com/api_category.php`
     const data = await (await fetch(endpoint)).json()
-    console.log(data)
     const cats = data.trivia_categories
         .filter((cat: Category) => cat.id != 31) //Exclude Japanese & Manga
         .map((cat: Category) => (

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import useSound from 'use-sound';
 
 //Styles
 import {GlobalStyle, Wrapper} from './App.style'
@@ -24,10 +25,11 @@ export type TriviaOption = {
 const App = () => {
   console.log('Entered App()')
 
-  const bravoSfx = new Audio('assets/sounds/assets/sounds/bravo.m4a')
-  bravoSfx.load()
-  const satisfaiteSfx = new Audio('assets/sounds/assets/sounds/satisfaite.m4a')
-  satisfaiteSfx.load()
+  const [playWow] = useSound('./assets/sounds/wow.m4a');
+  const [playBravo] = useSound('./assets/sounds/bravo.m4a');
+  const [playSatisfaite] = useSound('./assets/sounds/satisfaite.m4a');
+  const [playBien] = useSound('./assets/sounds/bien.m4a');
+  const [playEtudier] = useSound('./assets/sounds/etudier.m4a');
 
   const [questions, setQuestions] = useState<QuestionState[]>([])
   const [questionNumber, setQuestionNumber] = useState(0)
@@ -111,8 +113,32 @@ const App = () => {
 
   const handleGameOver = () => {
     setGameOver(true)
-    if (score / nbOfQuestion >= 0.6) {
-      score / nbOfQuestion >= 0.8 ? bravoSfx.play() : satisfaiteSfx.play()
+    const scoreInPercent = score / nbOfQuestion * 100
+    if (scoreInPercent === 100) {
+      playWow()
+    } else if (scoreInPercent >= 80) {
+      playBravo()
+    } else if (scoreInPercent >= 60) {
+      playSatisfaite()
+    } else if (scoreInPercent >= 40) {
+      playBien()
+    } else {
+      playEtudier()
+    }
+  }
+
+  const quizResultHeader = () => {
+    const scoreInPercent = score / nbOfQuestion * 100
+    if (scoreInPercent === 100) {
+      return 'WOW!!!'
+    } else if (scoreInPercent >= 80) {
+      return 'Bravo!!'
+    } else if (scoreInPercent >= 60) {
+      return 'Satisfaisant!'
+    } else if (scoreInPercent >= 40) {
+      return "C'est bien ça."
+    } else {
+      return 'Retourne Étudier Natou'
     }
   }
 
@@ -131,7 +157,7 @@ const App = () => {
           )}
           {triviaStarted && !loading && <span className="score">Score: {score} / {userAnswers.length}</span>}
           {gameOver && triviaStarted && (
-              <h1 style={{marginTop: "50px"}}>Bravo!</h1>
+              <h1 style={{marginTop: "50px"}}>{quizResultHeader()}</h1>
           )}
           <div className="questions page-centered">
             {triviaStarted && !loading && (

@@ -21,7 +21,7 @@ const TriviaSettings: React.FC<Props> = ({categories, nbOfQuestions, difficultie
     const [category, setCategory] = useState(-1)
     const [nbOfQuestion, setNbOfQuestion] = useState(NumberOfQuestion.TEN)
     const [difficulty, setDifficulty] = useState(Difficulty.EASY)
-    console.log(nbOfQuestions)
+
     const select = (e: React.MouseEvent<HTMLButtonElement>, type: SettingType) => {
         switch (type) {
             case SettingType.CATEGORY:
