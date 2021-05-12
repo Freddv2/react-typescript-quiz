@@ -82,7 +82,7 @@ const TriviaSettings: React.FC<Props> = ({categories, nbOfQuestions, difficultie
                 ))}
             </OptionsWrapper>
             <div>
-                <button className="start generic-button page-horizontally-centered" style={{marginTop: "40px"}} onClick={() => startTriviaCallback(category, nbOfQuestion, difficulty)}>
+                <button className="generic-button page-horizontally-centered" style={{marginTop: "25px"}} onClick={() => startTriviaCallback(category, nbOfQuestion, difficulty)}>
                     Start
                 </button>
             </div>

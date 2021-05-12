@@ -54,11 +54,26 @@ export const fetchCategories = async (): Promise<Category[]> => {
         .map((cat: Category) => (
             {
                 id: cat.id,
-                name: cat.name.substring(cat.name.indexOf(':') + 1, cat.name.length),
+                name: shortenedCategory(cat.name),
             }))
+
     cats.unshift({
         id: -1,
         name: 'Any'
     })
     return cats
+}
+
+const shortenedCategory = (cat: string) => {
+    let shortCategory = cat.substring(cat.indexOf(':') + 1, cat.length).trim();
+    if (shortCategory === 'General Knowledge')
+        return 'General'
+    else if (shortCategory === 'Musicals & Theatres')
+        return 'Musicals'
+    else if (shortCategory === 'Science & Nature')
+        return 'Science'
+    else if (shortCategory === 'Cartoon & Animations')
+        return 'Cartoon'
+    else
+        return shortCategory
 }

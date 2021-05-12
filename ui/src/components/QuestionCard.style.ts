@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   max-width: 1200px;
-  
+  margin-top: 50px;
+
   .question-text {
     color: white;
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 400;
     text-align: center;
-  }
-  .answers {
+    margin: 0 10% 0 10%;
   }
 `
 

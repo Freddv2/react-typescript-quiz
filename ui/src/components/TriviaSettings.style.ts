@@ -5,7 +5,11 @@ type OptionWrapperProps = {
 }
 
 export const TriviaSettingsWrapper = styled.div`
-  margin: 0 15% 0 15%;
+  margin: 0 20% 0 20%;
+`
+
+export const OptionsTitleWrapper = styled.div`
+
 `
 
 export const OptionsWrapper = styled.div`
@@ -21,8 +25,8 @@ export const OptionWrapper = styled.div<OptionWrapperProps>`
 
   button {
     font-size: 18px;
-    height: 50px;
-    width: 150px;
+    height: 30px;
+    width: 130px;
     color: ${({selected}) => selected ? 'black' : 'white'};
     background: ${({selected}) => selected ? 'azure' : 'black'};;
   }

@@ -76,9 +76,9 @@ const App = () => {
     setUserAnswers([])
     setQuestionNumber(0)
     setCategory(category)
-    setNbOfQuestion(1)
+    setNbOfQuestion(nbOfQuestion)
     setDifficulty(difficulty)
-    const questions = await fetchQuestions(category, 1, difficulty)
+    const questions = await fetchQuestions(category, nbOfQuestion, difficulty)
     setQuestions(questions)
     setLoading(false)
   }
@@ -115,11 +115,11 @@ const App = () => {
     setGameOver(true)
     const scoreInPercent = score / nbOfQuestion * 100
     if (scoreInPercent === 100) {
-      playWow()
+      playSatisfaite()
     } else if (scoreInPercent >= 80) {
       playBravo()
     } else if (scoreInPercent >= 60) {
-      playSatisfaite()
+      playWow()
     } else if (scoreInPercent >= 40) {
       playBien()
     } else {
@@ -130,11 +130,11 @@ const App = () => {
   const quizResultHeader = () => {
     const scoreInPercent = score / nbOfQuestion * 100
     if (scoreInPercent === 100) {
-      return 'WOW!!!'
+      return 'INCROYABLE!!!'
     } else if (scoreInPercent >= 80) {
       return 'Bravo!!'
     } else if (scoreInPercent >= 60) {
-      return 'Satisfaisant!'
+      return 'Wow!'
     } else if (scoreInPercent >= 40) {
       return "C'est bien ça."
     } else {
@@ -157,7 +157,7 @@ const App = () => {
           )}
           {triviaStarted && !loading && <span className="score">Score: {score} / {userAnswers.length}</span>}
           {gameOver && triviaStarted && (
-              <h1 style={{marginTop: "50px"}}>{quizResultHeader()}</h1>
+              <h1 style={{fontSize: 40}}>{quizResultHeader()}</h1>
           )}
           <div className="questions page-centered">
             {triviaStarted && !loading && (

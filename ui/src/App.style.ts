@@ -94,17 +94,17 @@ export const Wrapper = styled.div`
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
   }
-  
+
   button {
     cursor: pointer;
     color: white;
     user-select: none;
-    font-size: 30px;
+    font-size: 25px;
     width: 500px;
     border: 3px solid #fff;
-    box-shadow: 1px 2px 0 rgba(0,0,0,0.1);
+    box-shadow: 1px 2px 0 rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    text-shadow: 0 1px 0 rgba(0,0,0,0.25);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
     text-align: center;
     background: #0d0d0d;
   }
